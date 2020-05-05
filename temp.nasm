@@ -1,27 +1,22 @@
+section .text
+
 global _start
 
-section .data
-	sample: db 0xa,0xb,0xc,0xd
-
-section .txt
-
 _start:
-	mov eax,0x1
-	mov ebx,0x3
+	jmp short test
 
-	mov al,[sample]
-	mov bl,[sample]
-	mov ah,[sample]
-	mov ax,[sample]
+realStuff:
 
+    xor eax, eax
+    mov al, 0xb
 
-	lea eax,[sample]
-	
-	mov eax,0x3
-	mov ebx,0x5
+    pop ebx
 
-	xchg eax,ebx
+    xor ecx, ecx
+    xor edx, edx
 
+    int 0x80
 
-
-
+test:
+    call realStuff
+    shell: db  '/bin/sh', 0

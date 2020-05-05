@@ -4,13 +4,8 @@ global main
 
 main:
 
-    xor eax,eax
-    xor ebx,ebx
-    xor ecx,ecx
-    xor edx,edx
-    xor esi,esi
-    xor edi,edi
-
+    ; by default all registers are 0
+    ; xor all registers to clear them if u want 
 
     mov al,102  ;   socketcall
     mov bl,1
